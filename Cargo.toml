@@ -1,0 +1,15 @@
+[package]
+name = "iadb-api"
+version = "0.1.0"
+edition = "2021"
+description = "Wrapper for Band of England's Statistical Interactive Database (IADB)"
+license = "MIT OR Apache-2.0"
+homepage = "https://github.com/rsadykhov/iadb-api"
+repository = "https://github.com/rsadykhov/iadb-api"
+documentation = "https://docs.rs/iadb-api"
+
+[dependencies]
+serde = { version = "1.0.0", features = ["derive"] } # MIT or Apache 2.0
+reqwest = { version = "0.12.5", features = ["json"] } # MIT or Apache 2.0
+csv = { version = "1.3.1" } # Unlicense or MIT
+tokio = { version = "1.40.0", features = ["full"] } # MIT
