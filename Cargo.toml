@@ -1,12 +1,14 @@
 [package]
 name = "iadb-api"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2021"
 description = "Wrapper for Band of England's Statistical Interactive Database (IADB)"
 license = "MIT OR Apache-2.0"
 homepage = "https://github.com/rsadykhov/iadb-api"
 repository = "https://github.com/rsadykhov/iadb-api"
 documentation = "https://docs.rs/iadb-api"
+keywords = ["bank-of-england", "iadb", "api", "data", "yield"]
+categories = ["api-bindings", "data-structures", "finance", "science"]
 
 [dependencies]
 serde = { version = "1.0.0", features = ["derive"] } # MIT or Apache 2.0

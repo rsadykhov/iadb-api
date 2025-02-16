@@ -1,7 +1,7 @@
 use std::{error::Error, fmt};
 use reqwest::{Client, Response};
 use csv::{Reader, ReaderBuilder, StringRecord};
-use crate::{BASE_URL, schemas::{IADBSeries, IADBDataPoint}};
+use crate::{BASE_URL, SeriesCode, schemas::{IADBSeries, IADBDataPoint}};
 
 
 pub enum CSVF {
@@ -89,7 +89,7 @@ async fn process_request(url: String) -> Result<Vec<IADBDataPoint>, Box<dyn Erro
 /// - `series_code`: Code of the time series in the IADB.
 /// - `params`: List of parameters expected by the IADB API endpoint
 /// - `additional_params`: Additional parameters to add to the request
-pub async fn call_api_endpoint<'a>(series_code: &String, params: Vec<Param<'a>>, additional_params: Option<String>) -> Result<IADBSeries, Box<dyn Error>> {
+pub async fn call_api_endpoint<'a>(series_code: &SeriesCode, params: Vec<Param<'a>>, additional_params: Option<String>) -> Result<IADBSeries, Box<dyn Error>> {
     // Set up a URL for the API endpoint
     let mut url: String = String::from(BASE_URL);
     // Add parameters to the URL
@@ -104,7 +104,7 @@ pub async fn call_api_endpoint<'a>(series_code: &String, params: Vec<Param<'a>>,
     }
     // Process API response
     let data: Vec<IADBDataPoint> = process_request(url).await?;
-    Ok(IADBSeries { name: series_code.clone(), data, })
+    Ok(IADBSeries { name: series_code.to_string(), description: series_code.description(), data, })
 }
 
 

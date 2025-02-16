@@ -7,12 +7,13 @@ use serde::{Serialize, Deserialize};
 pub struct IADBSeries {
     /// IADB series code. 
     pub name: String,
+    pub description: String,
     pub data: Vec<IADBDataPoint>,
 }
 
 impl fmt::Display for IADBSeries {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        write!(f, "IADB Series ({})\n", self.name)?;
+        write!(f, "IADB Series: {} ({})\n", self.name, self.description)?;
         for item in self.data.iter() {
             write!(f, "{}\n", item.to_string())?;
         }

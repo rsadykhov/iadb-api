@@ -1,5 +1,5 @@
 use std::error::Error;
-use crate::{schemas::IADBSeries, utils::{VPD, CSVF, Param, call_api_endpoint}};
+use crate::{SeriesCode, schemas::IADBSeries, utils::{VPD, CSVF, Param, call_api_endpoint}};
 
 
 pub struct IADB;
@@ -16,24 +16,23 @@ impl IADB {
     /// # Examples
     /// 
     /// ```rust
-    /// use iadb_api::{schemas::IADBSeries, backend::IADB};
+    /// use iadb_api::{SeriesCode, schemas::IADBSeries, backend::IADB};
     /// 
     /// #[tokio::main]
     /// async fn main() -> () {
     /// 
     ///     // Parameters
-    ///     let series_code: String = SeriesCode::IUDSOIA.to_string();
     ///     let date_from: String = String::from("01/Jan/2000");
     ///     let date_to: String = String::from("01/Oct/2018");
     /// 
     ///     // Data collection
-    ///     let data: IADBSeries = IADB::get_data(&series_code, &date_from, &date_to).await.unwrap();
+    ///     let data: IADBSeries = IADB::get_data(&SeriesCode::IUDSOIA, &date_from, &date_to).await.unwrap();
     /// 
     ///     println!("{}", data);
     /// 
     /// }
     /// ```
-    pub async fn get_data(series_code: &String, date_from: &String, date_to: &String) -> Result<IADBSeries, Box<dyn Error>> {
+    pub async fn get_data(series_code: &SeriesCode, date_from: &String, date_to: &String) -> Result<IADBSeries, Box<dyn Error>> {
         // Parameters
         let using_codes: String = String::from("Y");
         let vfd: String = String::from("N");
@@ -55,11 +54,10 @@ mod tests {
     async fn unit_test_get_data() -> () {
         use crate::{SeriesCode, schemas::IADBSeries, backend::IADB};
         // Parameters
-        let series_code: String = SeriesCode::IUDSOIA.to_string();
         let date_from: String = String::from("01/Jan/2000");
         let date_to: String = String::from("01/Oct/2018");
         // Data collection
-        let data: IADBSeries = IADB::get_data(&series_code, &date_from, &date_to).await.unwrap();
+        let data: IADBSeries = IADB::get_data(&SeriesCode::IUDSOIA, &date_from, &date_to).await.unwrap();
         println!("{}", data);
     }
 }
