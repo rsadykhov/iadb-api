@@ -41,7 +41,7 @@ impl IADB {
             Param::DateFrom { v: &date_from }, Param::DateTo { v: &date_to }, Param::CSVF { v: &CSVF::TN }, Param::UsingCodes { v: &using_codes },
             Param::VPD { v: &VPD::Y }, Param::VFD { v: &vfd },
         ];
-        call_api_endpoint(&series_code, params, None).await
+        call_api_endpoint(&series_code.to_string(), &Some(series_code.description()), params, None).await
     }
 }
 
