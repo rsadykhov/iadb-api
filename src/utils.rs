@@ -1,9 +1,11 @@
-use std::{error::Error, fmt};
+use std::fmt;
 use reqwest::{Client, Response};
 use csv::{Reader, ReaderBuilder, StringRecord};
+use crate::error::Error;
 use crate::{BASE_URL, schemas::{IADBSeries, IADBDataPoint}};
 
 
+#[derive(Debug)]
 pub enum CSVF {
     TT,
     TN,
@@ -23,6 +25,7 @@ impl fmt::Display for CSVF {
 }
 
 
+#[derive(Debug)]
 pub enum VPD {
     Y,
     N,
@@ -38,6 +41,7 @@ impl fmt::Display for VPD {
 }
 
 
+#[derive(Debug)]
 pub enum Param<'a> {
     DateFrom { v: &'a String },
     DateTo { v: &'a String },
@@ -63,7 +67,7 @@ impl<'a> Param<'a> {
 
 
 /// Make a request to the provided URL, validate the status code of the response, and return deserialized data.
-async fn process_request(url: String) -> Result<Vec<IADBDataPoint>, Box<dyn Error>> {
+async fn process_request(url: String) -> Result<Vec<IADBDataPoint>, Error> {
     let user_agent: &str = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.90 Safari/537.36";
     let client: Client = Client::builder().user_agent(user_agent).build()?;
     let response: Response = client.get(url).send().await?;
@@ -89,7 +93,7 @@ async fn process_request(url: String) -> Result<Vec<IADBDataPoint>, Box<dyn Erro
 /// - `series_code`: Code of the time series in the IADB.
 /// - `params`: List of parameters expected by the IADB API endpoint
 /// - `additional_params`: Additional parameters to add to the request
-pub async fn call_api_endpoint<'a>(series_code: &String, description: &Option<String>, params: Vec<Param<'a>>, additional_params: Option<String>) -> Result<IADBSeries, Box<dyn Error>> {
+pub async fn call_api_endpoint<'a>(series_code: &String, description: &Option<String>, params: Vec<Param<'a>>, additional_params: Option<String>) -> Result<IADBSeries, Error> {
     // Set up a URL for the API endpoint
     let mut url: String = String::from(BASE_URL);
     // Add parameters to the URL

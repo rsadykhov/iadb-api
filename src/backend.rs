@@ -1,4 +1,4 @@
-use std::error::Error;
+use crate::error::Error;
 use crate::{SeriesCode, schemas::IADBSeries, utils::{VPD, CSVF, Param, call_api_endpoint}};
 
 
@@ -32,7 +32,7 @@ impl IADB {
     /// 
     /// }
     /// ```
-    pub async fn get_data(series_code: &SeriesCode, date_from: &String, date_to: &String) -> Result<IADBSeries, Box<dyn Error>> {
+    pub async fn get_data(series_code: &SeriesCode, date_from: &String, date_to: &String) -> Result<IADBSeries, Error> {
         // Parameters
         let using_codes: String = String::from("Y");
         let vfd: String = String::from("N");

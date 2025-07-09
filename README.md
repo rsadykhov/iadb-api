@@ -1,6 +1,6 @@
 # IADB API Wrapper
 
-`iadb-api` is a wrapper for the Band of England's Statistical Interactive Database (IADB). The data can be accessed using specific series codes,
+`iadb-api` is a wrapper for the Bank of England's Statistical Interactive Database (IADB). The data can be accessed using specific series codes,
 most of which are defined in the variants of the `SeriesCode` enum.
 
 **Disclaimer:** This crate is an unofficial IADB wrapper, the maintainers of the crate are independent developers.
