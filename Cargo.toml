@@ -1,6 +1,6 @@
 [package]
 name = "iadb-api"
-version = "0.1.3"
+version = "0.1.4"
 edition = "2021"
 description = "Wrapper for Bank of England's Statistical Interactive Database (IADB)"
 license = "MIT OR Apache-2.0"
